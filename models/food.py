@@ -41,7 +41,14 @@ class FoodModel:
         try:
             week_cursor = db.week.find_one()
             date_to_week = datetime.strptime(date, '%d-%m-%Y').weekday()
-            curson = db.foodmenu.find({"week": week_cursor["week"],"day_number":date_to_week})
+            if datetime.now().weekday() == 6 and date_to_week == 0:
+                if week_cursor["week"] == 4:
+                    weeknumber = 1
+                else:
+                    weeknumber = curson['week'] + 1
+                curson = db.foodmenu.find({"week": weeknumber, "day_number": date_to_week})
+            else:
+                curson = db.foodmenu.find({"week": week_cursor["week"],"day_number":date_to_week})
             return {'lunch': curson[0]['lunch'], 'dinner': curson[0]['dinner']}
         except IndexError:
             return 'not found'
