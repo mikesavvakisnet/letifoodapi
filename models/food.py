@@ -45,7 +45,7 @@ class FoodModel:
                 if week_cursor["week"] == 4:
                     weeknumber = 1
                 else:
-                    weeknumber = curson['week'] + 1
+                    weeknumber = week_cursor['week'] + 1
                 curson = db.foodmenu.find({"week": weeknumber, "day_number": date_to_week})
             else:
                 curson = db.foodmenu.find({"week": week_cursor["week"],"day_number":date_to_week})
